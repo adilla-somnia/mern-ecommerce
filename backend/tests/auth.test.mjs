@@ -1,7 +1,10 @@
 import request from "supertest";
 import app from "../app.js";
-import { connectTestDB, disconnectTestDB, redis } from "./setup.js";
+import { connectTestDB, disconnectTestDB } from "./setup.js";
 import User from "../models/user.model.js";
+import '../tests/setup.js';
+import { jest } from '@jest/globals';
+
 
 beforeAll(async () => {
   await connectTestDB();

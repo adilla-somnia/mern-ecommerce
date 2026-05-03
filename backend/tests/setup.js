@@ -1,9 +1,6 @@
-import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import Redis from "ioredis-mock"; // mock do Redis
-import dotenv from "dotenv";
-
-dotenv.config();
+import mongoose from "mongoose";
+import Redis from "ioredis-mock";
 
 let mongoServer;
 export const redis = new Redis();
@@ -15,7 +12,7 @@ export const connectTestDB = async () => {
 };
 
 export const disconnectTestDB = async () => {
-  await mongoose.disconnect();
-  if (mongoServer) await mongoServer.stop();
-  await redis.quit();
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  await mongoServer.stop();
 };
