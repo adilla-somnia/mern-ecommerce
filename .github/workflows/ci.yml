@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - "*"
+      - "chore/ci-initial"
   pull_request:
     branches:
       - master
