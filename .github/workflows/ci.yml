@@ -41,4 +41,4 @@ jobs:
       - name: Run tests
         env:
           NODE_ENV: test
-        run: npm test
+        run: npm test:coverage
