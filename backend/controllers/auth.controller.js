@@ -36,11 +36,26 @@ const setCookies = (res, accessToken, refreshToken) => {
 export const signup = async (req, res) => {
 	const { email, password, name } = req.body;
 	try {
+		// check for empty fields
+		if (!email || !password || !name) {
+			return res.status(400).json({ message: "All fields are required", error: "Missing required fields" });
+		}
+
 		const userExists = await User.findOne({ email });
 
 		if (userExists) {
-			return res.status(400).json({ message: "User already exists" });
+			return res.status(400).json({ message: "User already exists", error: "User already exists" });
 		}
+		const valideEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!valideEmailRegex.test(email)) {
+			return res.status(400).json({ message: "Invalid email format", error: "Invalid email format" });
+		}
+
+		// validar tamanho da senha
+		if (password.length < 6) {
+			return res.status(400).json({ message: "Password must be at least 6 characters", error: "Password too short" });
+		}
+
 		const user = await User.create({ name, email, password });
 
 		// authenticate
@@ -64,6 +79,12 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
+
+		// validar campos vazios
+		if (!email || !password) {
+			return res.status(400).json({ message: "Email and password are required", error: "Missing required fields" });
+		}
+
 		const user = await User.findOne({ email });
 
 		if (user && (await user.comparePassword(password))) {
@@ -78,7 +99,7 @@ export const login = async (req, res) => {
 				role: user.role,
 			});
 		} else {
-			res.status(400).json({ message: "Invalid email or password" });
+			res.status(400).json({ message: "Invalid email or password", error: "Invalid credentials" });
 		}
 	} catch (error) {
 		console.log("Error in login controller", error.message);
