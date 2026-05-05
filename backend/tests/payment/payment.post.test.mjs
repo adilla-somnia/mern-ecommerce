@@ -7,7 +7,7 @@ import Product from "../../models/product.model.js";
 import Coupon from "../../models/coupon.model.js";
 import Order from "../../models/order.model.js";
 
-// ⚡️ Mock Stripe antes de importar o app
+// mock Stripe antes de importar o app
 await jest.unstable_mockModule("../../lib/stripe.js", () => ({
     stripe: {
         checkout: {
