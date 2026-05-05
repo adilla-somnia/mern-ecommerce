@@ -32,9 +32,9 @@ export const createCheckoutSession = async (req, res) => {
 		let coupon = null;
 		if (couponCode) {
 			coupon = await Coupon.findOne({ code: couponCode, userId: req.user._id, isActive: true });
-			console.log("procurando")
+
 			if (coupon) {
-				console.log("ACHEI")
+
 				totalAmount -= Math.round((totalAmount * coupon.discountPercentage) / 100);
 			}
 		}
