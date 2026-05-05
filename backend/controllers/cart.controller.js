@@ -20,12 +20,6 @@ export const getCartProducts = async (req, res) => {
 export const addToCart = async (req, res) => {
 	try {
 		const { productId } = req.body;
-
-		// validar product Id
-		if (!productId) {
-			return res.status(400).json({ message: "No productId was provided", error: "No productId was provided" })
-		}
-
 		const user = req.user;
 
 		const existingItem = user.cartItems.find((item) => item.id === productId);
