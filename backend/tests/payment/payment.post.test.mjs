@@ -126,7 +126,6 @@ describe("Payment Controller", () => {
                 .set("Cookie", userCookie)
                 .send({ sessionId: "6637f2a4b8c1d2e3f4a56789" });
 
-            console.log("CHEGUEI AQUI", res.body)
             expect(res.statusCode).toBe(200);
             expect(res.body).toHaveProperty("success", true);
 
