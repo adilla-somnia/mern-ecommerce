@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../app.js";
 import { connectTestDB, disconnectTestDB } from "./setup.js";
 import User from "../models/user.model.js";
-import '../tests/setup.js';
+import './setup.js';
 import { describe, expect, jest } from '@jest/globals';
 import e from "express";
 

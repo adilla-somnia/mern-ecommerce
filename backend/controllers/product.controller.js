@@ -41,6 +41,22 @@ export const getFeaturedProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
 	try {
+
+		// verifica campos vazios
+		if (!req.body.name || !req.body.description || !req.body.price || !req.body.category || !req.body.image) {
+			return res.status(400).json({ message: "Name, description, price, category and image are required", error: "Missing required fields" });
+		}
+
+		// valida tipo de dados
+		if (typeof req.body.name !== "string" || typeof req.body.description !== "string" || typeof req.body.price !== "number" || typeof req.body.category !== "string" || typeof req.body.image !== "string") {
+			return res.status(400).json({ message: "Invalid data types for name, description, price, category or image", error: "Invalid data types" });
+		}
+
+		// valida preço negativo
+		if (req.body.price < 0) {
+			return res.status(400).json({ message: "Price cannot be negative", error: "Invalid price value" });
+		}
+
 		const { name, description, price, image, category } = req.body;
 
 		let cloudinaryResponse = null;
@@ -66,6 +82,11 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
 	try {
+		// validar id
+		if (typeof (req.params.id) === "undefined" || req.params.id === "undefined") {
+			return res.status(400).json({ message: "Product id should be a string", error: "Invalid product id" });
+		}
+
 		const product = await Product.findById(req.params.id);
 
 		if (!product) {
@@ -128,6 +149,16 @@ export const getProductsByCategory = async (req, res) => {
 
 export const toggleFeaturedProduct = async (req, res) => {
 	try {
+		// valida se o id do produto foi fornecido
+		if (!req.params.id) {
+			return res.status(400).json({ message: "Product ID is required", error: "Missing product ID" });
+		}
+
+		// valida se o id é um ObjectId válido do MongoDB
+		if (typeof req.params.id !== "string" || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+			return res.status(400).json({ message: "Valid product ID is required", error: "Invalid product ID" });
+		}
+
 		const product = await Product.findById(req.params.id);
 		if (product) {
 			product.isFeatured = !product.isFeatured;
