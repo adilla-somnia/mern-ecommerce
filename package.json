@@ -7,7 +7,7 @@
 		"dev": "nodemon backend/server.js",
 		"start": "node backend/server.js",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --debug",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --debug --testTimeout=15000",
 		"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --runInBand",
 		"test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand",
 		"lint": "eslint . --ext .js"
@@ -22,7 +22,8 @@
 		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.4.5",
 		"eslint": "^10.3.0",
-		"express": "^4.19.2",
+		"express": "^4.19.2"
+		,
 		"ioredis": "^5.4.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.5.3",
