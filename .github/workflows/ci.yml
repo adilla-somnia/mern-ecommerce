@@ -11,34 +11,46 @@ on:
       - master
 
 jobs:
-  test:
+  test-auth:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: test
       ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
       REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+
     steps:
-      # faz checkout do código
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # configura Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
 
-      # instala dependências
       - name: Install dependencies
         run: npm install
 
-      # Lint (opcional)
-      - name: Run ESLint
-        run: npm run lint
-        continue-on-error: true # não quebra CI se lint falhar
+      - name: Run Auth tests
+        run: npm test -- tests/auth
 
-      # Run tests
-      - name: Run tests
-        env:
-          NODE_ENV: test
-        run: npm run test:coverage
+  test-products:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+      REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Product tests
+        run: npm test -- tests/products

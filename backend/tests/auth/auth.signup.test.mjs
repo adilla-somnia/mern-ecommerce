@@ -15,7 +15,6 @@ afterAll(async () => {
     await disconnectTestDB();
 });
 
-
 describe("Auth endpoints - Signup unit tests", () => {
     // // SIGN UP UNIT TESTS
     // 1. Signup feliz
