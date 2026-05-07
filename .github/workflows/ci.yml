@@ -74,7 +74,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Product tests
+      - name: Run Payment tests
         run: npm test -- tests/payment
           
   test-cart:
@@ -96,7 +96,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Product tests
+      - name: Run Cart tests
         run: npm test -- tests/cart
 
   test-coupon:
@@ -118,7 +118,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Product tests
+      - name: Run Coupon tests
         run: npm test -- tests/coupon
 
   test-e2e:
@@ -140,5 +140,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Product tests
+      - name: Run E2E tests
         run: npm test -- tests/e2e
