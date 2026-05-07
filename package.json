@@ -6,7 +6,11 @@
 	"scripts": {
 		"dev": "nodemon backend/server.js",
 		"start": "node backend/server.js",
-		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --debug --testTimeout=15000",
+		"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --runInBand",
+		"test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand",
+		"lint": "eslint . --ext .js"
 	},
 	"keywords": [],
 	"author": "",
@@ -17,13 +21,19 @@
 		"cloudinary": "^2.4.0",
 		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.4.5",
-		"express": "^4.19.2",
+		"eslint": "^10.3.0",
+		"express": "^4.19.2"
+		,
 		"ioredis": "^5.4.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.5.3",
 		"stripe": "^16.8.0"
 	},
 	"devDependencies": {
-		"nodemon": "^3.1.4"
+		"ioredis-mock": "^8.13.1",
+		"jest": "^30.3.0",
+		"mongodb-memory-server": "^11.1.0",
+		"nodemon": "^3.1.4",
+		"supertest": "^7.2.2"
 	}
 }

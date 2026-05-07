@@ -45,10 +45,10 @@ export const createCheckoutSession = async (req, res) => {
 			cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,
 			discounts: coupon
 				? [
-						{
-							coupon: await createStripeCoupon(coupon.discountPercentage),
-						},
-				  ]
+					{
+						coupon: await createStripeCoupon(coupon.discountPercentage),
+					},
+				]
 				: [],
 			metadata: {
 				userId: req.user._id.toString(),
